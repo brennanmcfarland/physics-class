@@ -16,40 +16,58 @@ def iterate(xn,R):
 
 #HERE IS WHERE THE PROGRAM STARTS:
 
-#give it our R and our first x, the first y is calculated:
-R = 3.55
-x = [.0001]
+#for our first graph, we need only iterate a few times
+#to see convergence:
+iterations = 5
 
-y = [iterate(x[0],R)]
+#create our list of n integers and configure the axes:
+n = list(range(0,iterations+1))
+plt.axis([0,len(n)-1,0,1])
+
+#give it our R and our first x, the first y is calculated:
+R = 2.0
+x = [.3]
 
 #for 100 iterations, find the next x and y by iterating:
-#note that the loop goes 200 times because it is calculating 2 ys for each x
-for i in range(0,201):
-    y.append(iterate(x[i],R))
-    x.append(y[i])
+for i in range(0,iterations):
+    x.append(iterate(x[i],R))
 
-#now get rid of all the xs and ys except for the last, the  hundredth iteration:
-x = [x[len(x)-1]]
-y = [x[0]]
+#annotate our equation:
+plt.annotate("x[0]=.30,R=2.0",(1-.75,x[1]+.03))
 
-#and iterate out another 20 iterations to see the periodicity:
-#notice: it is a period 8 attractor!
-for i in range(0,40):
-    y.append(iterate(x[i],R))
-    x.append(y[i])
+#plot:
+plt.plot(n,x)
 
-#format the axes, plot the curve and y=x line, this part is not important, just visually helpful
-plt.axis([0,1,0,1])
-plt.plot([0,1])
-curvepoints = graphfunction(0,1,.01,iterate,R)
-plt.plot(curvepoints[0],curvepoints[1])
+#give it our R and our second x, and do the same as above:
+R = 2.0
+x = [.31]
+for i in range(0,iterations):
+    x.append(iterate(x[i],R))
+plt.annotate("x[0]=.31,R=2.0",(1,x[1]-.03))
+plt.plot(n,x)
 
-#print out our set of x values, our set of n steps:
-print("The next 20 steps after n=100 are: ")
-for i in range(0,int(len(x)/2)):
-    print(x[i*2+1])
-print("It is a period 8 attractor. ")
+#and make that our first graph:
+plt.show()
 
-#and plot our logistic difference equation
-plt.plot(x,y)
+#for the next plot, more iterations are necessary:
+iterations = 20
+n = list(range(0,iterations+1))
+plt.axis([0,len(n)-1,0,1])
+
+#give it our new R and plot two more times with our 2 initial xs:
+R = 3.9
+x = [.3]
+for i in range(0,iterations):
+    x.append(iterate(x[i],R))
+plt.annotate("x[0]=.30,R=3.9",(15,x[18]))
+plt.plot(n,x)
+
+R = 3.9
+x = [.31]
+for i in range(0,iterations):
+    x.append(iterate(x[i],R))
+plt.annotate("x[0]=.31,R=3.9",(14,x[17]))
+plt.plot(n,x)
+
+#and make that our second graph:
 plt.show()
