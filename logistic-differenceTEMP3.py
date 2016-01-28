@@ -19,8 +19,8 @@ def iterateY(xn,yn,w,dt):
     return yn-w*xn*dt
 #HERE IS WHERE THE PROGRAM STARTS:
 
-#iterate 100 times:
-iterations = 100
+#iterate 300 times:
+iterations = 300
 
 #create our list of n integers and configure the axes:
 n = list(range(0,iterations+1))
@@ -28,30 +28,27 @@ n = list(range(0,iterations+1))
 
 #give it our first x and y:
 x = [0]
-y = [1]
+y = [1.0]
 
 #give it our w and dt:
 w = 1
-dt = .1
+dt = .05
 
-#for 100 iterations, find the next x and y by iterating:
+#for 300 iterations, find the next x and y by iterating:
 for i in range(0,iterations):
-    x.append(iterateX(x[i],y[i],w,dt))
     y.append(iterateY(x[i],y[i],w,dt))
+    x.append(iterateX(x[i],y[i],w,dt))
 
 #plot the approximation:
 plt.plot(x,y)
-plt.show()
 
 #reset x and y:
 x = [0]
-y = [1]
+y = [1.1]
 
-#get the points for a circle:
+#for 300 iterations, find the next x and y by iterating:
 for i in range(0,iterations):
-    x.append(math.sin(i))
-    y.append(math.cos(i))
-
-#plot the approximation
+    y.append(iterateY(x[i],y[i],w,dt))
+    x.append(iterateX(x[i],y[i],w,dt))
 plt.plot(x,y)
 plt.show()

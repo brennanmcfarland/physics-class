@@ -40,18 +40,40 @@ for i in range(0,iterations):
     y.append(iterateY(x[i],y[i],w,dt))
 
 #plot the approximation:
-plt.plot(x,y)
-plt.show()
+plt.plot(list(range(0,iterations+1)),x)
 
 #reset x and y:
 x = [0]
 y = [1]
 
-#get the points for a circle:
+#get the exact equation:
 for i in range(0,iterations):
-    x.append(math.sin(i))
-    y.append(math.cos(i))
+    x.append(math.sin(i/10))
+plt.plot(list(range(0,iterations+1)),x)
+plt.show()
 
 #plot the approximation
-plt.plot(x,y)
+#plt.plot(x,y)
+plt.show()
+
+#reset x and y
+x = [0]
+y = [1]
+
+#for 100 iterations, find the next x and y by iterating:
+for i in range(0,iterations):
+    x.append(iterateX(x[i],y[i],w,dt))
+    y.append(iterateY(x[i],y[i],w,dt))
+
+#plot the approximation:
+plt.plot(list(range(0,iterations+1)),x)
+
+#reset x and y:
+x = [0]
+y = [1]
+
+#get the exact equation:
+for i in range(0,iterations):
+    y.append(math.cos(i/10))
+plt.plot(list(range(0,iterations+1)),y)
 plt.show()

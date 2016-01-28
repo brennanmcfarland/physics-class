@@ -11,12 +11,14 @@ def graphfunction(xmin,xmax,xres,function,*args):
         i+=1
     return [x,y]
 
-def iterateX(xn,yn,w,dt):
+def iterateX(xn,yn,zn,a,b,c,dt):
     "iterate for x"
-    return xn+w*yn*dt
-def iterateY(xn,yn,w,dt):
+    return xn+a*(yn-xn)*dt
+def iterateY(xn,yn,zn,a,b,c,dt):
     "iterate for y"
-    return yn-w*xn*dt
+    return yn+(-yn+b*xn-xn*zn)*dt
+def iterateZ(xn,yn,zn,a,b,c,dt):
+	return zn+(-c*zn+xn*yn)*dt
 #HERE IS WHERE THE PROGRAM STARTS:
 
 #iterate 100 times:
@@ -26,32 +28,40 @@ iterations = 100
 n = list(range(0,iterations+1))
 #plt.axis([0,len(n)-1,0,1])
 
-#give it our first x and y:
+#give it our initial variables:
 x = [0]
-y = [1]
-
-#give it our w and dt:
-w = 1
-dt = .1
+y = [10]
+z = [0]
+dt = .01
+a = 10
+b = 28
+c = 8/3
 
 #for 100 iterations, find the next x and y by iterating:
 for i in range(0,iterations):
-    x.append(iterateX(x[i],y[i],w,dt))
-    y.append(iterateY(x[i],y[i],w,dt))
+    x.append(iterateX(x[i],y[i],z[i],a,b,c,dt))
+    y.append(iterateY(x[i],y[i],z[i],a,b,c,dt))
+    z.append(iterateZ(x[i],y[i],z[i],a,b,c,dt))
 
 #plot the approximation:
-plt.plot(x,y)
-plt.show()
+plt.plot(n,x)
 
-#reset x and y:
+#reset variables
 x = [0]
-y = [1]
+y = [11]
+z = [0]
+dt = .01
+a = 10
+b = 28
+c = 8/3
 
-#get the points for a circle:
+#for 100 iterations, find the next x and y by iterating:
 for i in range(0,iterations):
-    x.append(math.sin(i))
-    y.append(math.cos(i))
+    x.append(iterateX(x[i],y[i],z[i],a,b,c,dt))
+    y.append(iterateY(x[i],y[i],z[i],a,b,c,dt))
+    z.append(iterateZ(x[i],y[i],z[i],a,b,c,dt))
 
-#plot the approximation
-plt.plot(x,y)
+#plot the approximation:
+plt.plot(n,x)
+
 plt.show()

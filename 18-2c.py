@@ -11,47 +11,33 @@ def graphfunction(xmin,xmax,xres,function,*args):
         i+=1
     return [x,y]
 
-def iterateX(xn,yn,w,dt):
+def iterateX(xn,yn,a,b):
     "iterate for x"
-    return xn+w*yn*dt
-def iterateY(xn,yn,w,dt):
+    return 1+yn-a*xn*xn
+def iterateY(xn,yn,a,b):
     "iterate for y"
-    return yn-w*xn*dt
+    return b*xn
 #HERE IS WHERE THE PROGRAM STARTS:
 
 #iterate 100 times:
-iterations = 100
+iterations = 20
 
 #create our list of n integers and configure the axes:
 n = list(range(0,iterations+1))
 #plt.axis([0,len(n)-1,0,1])
 
-#give it our first x and y:
+#give it our initial variables:
 x = [0]
-y = [1]
-
-#give it our w and dt:
-w = 1
-dt = .1
+y = [0]
+a = 1.4
+b = .3
 
 #for 100 iterations, find the next x and y by iterating:
 for i in range(0,iterations):
-    x.append(iterateX(x[i],y[i],w,dt))
-    y.append(iterateY(x[i],y[i],w,dt))
+    x.append(iterateX(x[i],y[i],a,b))
+    y.append(iterateY(x[i],y[i],a,b))
 
 #plot the approximation:
 plt.plot(x,y)
-plt.show()
 
-#reset x and y:
-x = [0]
-y = [1]
-
-#get the points for a circle:
-for i in range(0,iterations):
-    x.append(math.sin(i))
-    y.append(math.cos(i))
-
-#plot the approximation
-plt.plot(x,y)
 plt.show()
